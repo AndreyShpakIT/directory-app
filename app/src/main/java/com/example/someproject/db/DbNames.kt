@@ -1,0 +1,67 @@
+import android.provider.BaseColumns
+
+object DbNames : BaseColumns {
+
+    // Data Base information
+    const val DATABASE_VERSION = 1
+    const val DATABASE_NAME = "Database.db"
+
+    // Table
+    const val TABLE_ARTICLES = "Articles"
+    const val TABLE_PICTURES = "Pictures"
+    const val TABLE_PARAGRAPHS = "Paragraphs"
+    const val TABLE_ARTICLECONTENT = "ArticleContent"
+
+    // Article's fields
+    const val FIELD_ARTICLE_ID = "ArticleId"
+    const val FIELD_ARTICLE_NAME_RU = "NameRu"
+    const val FIELD_ARTICLE_NAME_BY = "NameBy"
+
+    // Picture's fields
+    const val FIELD_PICTURE_ID = "PictureId"
+    const val FIELD_PICTURE_IMG = "Img"
+
+    // Paragraph's fields
+    const val FIELD_PARAGRAPH_ID = "ParagraphId"
+    const val FIELD_PARAGRAPH_TEXT_RU = "TextRu"
+    const val FIELD_PARAGRAPH_TEXT_BY = "TextBy"
+
+    // Article Content fields
+    const val FIELD_ARTICLECONTENT_ID = "ArticleContentId"
+    const val FIELD_ARTICLECONTENT_ARTICLE_ID = "ArticleId"
+    const val FIELD_ARTICLECONTENT_PICTURE_ID = "PictureId"
+    const val FIELD_ARTICLECONTENT_PARAGRAPH_ID = "ParagraphId"
+
+    // SQL queries
+    const val SQL_CREATE_TABLE_ARTICLES =
+        "CREATE TABLE IF NOT EXISTS $TABLE_ARTICLES(" +
+                "$FIELD_ARTICLE_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "$FIELD_ARTICLE_NAME_RU TEXT, " +
+                "$FIELD_ARTICLE_NAME_BY TEXT)"
+
+    //"$FIELD_PICTURE_ID INTEGER REFERENCES $TABLE_WORDS (WordID))
+
+    const val SQL_CREATE_TABLE_PICTURES =
+        "CREATE TABLE IF NOT EXISTS $TABLE_PICTURES(" +
+                "$FIELD_PICTURE_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "$FIELD_PICTURE_IMG BLOB)"
+
+    const val SQL_CREATE_TABLE_PARAGRAPHS =
+        "CREATE TABLE IF NOT EXISTS $TABLE_PARAGRAPHS(" +
+                "$FIELD_PARAGRAPH_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "$FIELD_PARAGRAPH_TEXT_RU TEXT, " +
+                "$FIELD_PARAGRAPH_TEXT_BY TEXT)"
+
+    const val SQL_CREATE_TABLE_ARTICLECONTENT =
+        "CREATE TABLE IF NOT EXISTS $TABLE_ARTICLECONTENT(" +
+                "$FIELD_ARTICLECONTENT_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "$FIELD_ARTICLECONTENT_ARTICLE_ID INTEGER REFERENCES $TABLE_ARTICLES ($FIELD_ARTICLE_ID), " +
+                "$FIELD_ARTICLECONTENT_PICTURE_ID INTEGER REFERENCES $TABLE_PICTURES ($FIELD_PICTURE_ID), " +
+                "$FIELD_ARTICLECONTENT_PARAGRAPH_ID INTEGER REFERENCES $TABLE_PARAGRAPHS ($FIELD_PARAGRAPH_ID))"
+
+
+    const val SQL_DELETE_TABLE_ARTICLES = "DROP TABLE IF EXISTS $TABLE_ARTICLES"
+    const val SQL_DELETE_TABLE_PICTURES = "DROP TABLE IF EXISTS $TABLE_PICTURES"
+    const val SQL_DELETE_TABLE_PARAGRAPHS = "DROP TABLE IF EXISTS $TABLE_PARAGRAPHS"
+    const val SQL_DELETE_TABLE_ARTICLECONTENT = "DROP TABLE IF EXISTS $TABLE_ARTICLECONTENT"
+}
